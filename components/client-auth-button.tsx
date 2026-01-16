@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { createClient } from "@/lib/supabase/client";
-import { LogoutButton } from "./logout-button";
+import { UserAvatar } from "./user-avatar";
 import { User } from "@supabase/supabase-js";
 
 export function ClientAuthButton() {
@@ -50,14 +50,11 @@ export function ClientAuthButton() {
   }, []);
 
   if (loading) {
-    return <div className="h-8 w-32 bg-gray-200 animate-pulse rounded" />;
+    return <div className="h-8 w-8 bg-gray-200 animate-pulse rounded-full" />;
   }
 
   return user ? (
-    <div className="flex items-center gap-4">
-      Hey, {user.email}!
-      <LogoutButton />
-    </div>
+    <UserAvatar />
   ) : (
     <div className="flex gap-2">
       <Button asChild size="sm" variant={"outline"}>

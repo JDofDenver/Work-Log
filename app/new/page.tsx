@@ -12,7 +12,7 @@ import Link from "next/link";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
-  
+
   return (
     <Button
       type="submit"
@@ -56,7 +56,7 @@ export default function NewEntryPage() {
                 {error}
               </div>
             )}
-            
+
             <div className="space-y-2">
               <Label htmlFor="project">Project</Label>
               <Input
@@ -93,7 +93,7 @@ export default function NewEntryPage() {
 
             <div className="flex gap-3">
               <SubmitButton />
-              <Link href="/protected/work-log">
+              <Link href="/">
                 <Button type="button" variant="outline">
                   Cancel
                 </Button>

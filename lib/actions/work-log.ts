@@ -26,13 +26,13 @@ export async function getWorkLogEntries() {
 
 export async function getWorkLogEntry(id: string) {
   const supabase = await createClient();
-  
+
   // Check if user is authenticated
   const { data: { user }, error: authError } = await supabase.auth.getUser();
   if (authError || !user) {
     redirect("/auth/login");
   }
-  
+
   const { data, error } = await supabase
     .from('workLog')
     .select('*')
@@ -47,17 +47,17 @@ export async function getWorkLogEntry(id: string) {
     }
     throw new Error("Failed to fetch work log entry");
   }
-  
+
   return data;
 }
 
 
 export async function createWorkLogEntry(formData: FormData) {
   const supabase = await createClient();
-  
+
   // Check if user is authenticated
   const { data: { user }, error: authError } = await supabase.auth.getUser();
-  
+
   if (authError || !user) {
     redirect("/auth/login");
   }
@@ -91,13 +91,13 @@ export async function createWorkLogEntry(formData: FormData) {
     }
 
     console.log("Created entry:", data);
-    
+
     // Revalidate the work log page to show the new entry
     revalidatePath("/protected/work-log");
-    
+
     // Redirect to the work log page
     redirect("/protected/work-log");
-    
+
   } catch (error) {
     console.error("Error creating work log entry:", error);
     throw error;
@@ -106,10 +106,10 @@ export async function createWorkLogEntry(formData: FormData) {
 
 export async function updateWorkLogEntry(entryId: string, formData: FormData) {
   const supabase = await createClient();
-  
+
   // Check if user is authenticated
   const { data: { user }, error: authError } = await supabase.auth.getUser();
-  
+
   if (authError || !user) {
     redirect("/auth/login");
   }
@@ -142,13 +142,13 @@ export async function updateWorkLogEntry(entryId: string, formData: FormData) {
     }
 
     console.log("Updated entry:", data);
-    
+
     // Revalidate pages that might show this data
-    revalidatePath("/protected/work-log");
-    revalidatePath(`/protected/work-log/${entryId}/edit`);
-    
+    revalidatePath("/");
+    revalidatePath(`/${entryId}/edit`);
+
     return { success: true, data };
-    
+
   } catch (error) {
     console.error("Error updating work log entry:", error);
     throw error;

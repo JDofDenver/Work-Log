@@ -13,7 +13,7 @@ import Link from "next/link";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
-  
+
   return (
     <Button
       type="submit"
@@ -64,7 +64,7 @@ export function EditEntryForm({ entry }: EditEntryFormProps) {
         <div className="text-sm text-muted-foreground">
           {entry.created_at ? new Date(entry.created_at).toLocaleDateString('en-US', {
             year: 'numeric',
-            month: 'long', 
+            month: 'long',
             day: 'numeric'
           }) : 'No Date'}
         </div>
@@ -83,7 +83,7 @@ export function EditEntryForm({ entry }: EditEntryFormProps) {
                 {error}
               </div>
             )}
-            
+
             <div className="space-y-2">
               <Label htmlFor="project">Project</Label>
               <Input
@@ -135,7 +135,7 @@ export function EditEntryForm({ entry }: EditEntryFormProps) {
                     <EditIcon size={16} />
                     Edit Entry
                   </Button>
-                  <Link href="/protected/work-log">
+                  <Link href="/">
                     <Button type="button" variant="outline">
                       Back to Log
                     </Button>

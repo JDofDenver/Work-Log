@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -43,7 +42,7 @@ async function WorkLogContent() {
   return (
     <div className="flex-1 w-full flex flex-col gap-8">
       <div className="flex justify-between items-center">
-        <h1 className="font-bold text-3xl">Work Log Entries</h1>
+        <h1 className="font-bold text-3xl">Work Log</h1>
         <Link href="/new">
           <Button className="flex items-center gap-2">
             <PlusIcon size={16} />

@@ -9,6 +9,7 @@ import { SaveIcon } from "lucide-react";
 import { createWorkLogEntry } from "@/lib/actions/work-log";
 import { useFormStatus } from "react-dom";
 import Link from "next/link";
+import { WorkLogNav } from "@/components/work-log-nav";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -17,7 +18,7 @@ function SubmitButton() {
     <Button
       type="submit"
       disabled={pending}
-      className="flex items-center gap-2"
+      className="flex items-center gap-2 w-full md:w-auto"
     >
       <SaveIcon size={16} />
       {pending ? "Saving..." : "Save Entry"}
@@ -40,12 +41,14 @@ export default function NewEntryPage() {
   }
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-8">
+
+    <div className="flex-1 w-full flex flex-col gap-8 items-center">
+      <WorkLogNav />
       <div>
         <h1 className="font-bold text-3xl">New Work Log Entry</h1>
       </div>
 
-      <Card className="max-w-2xl">
+      <Card className="w-full max-w-2xl md:max-w-4xl">
         <CardHeader>
           <CardTitle>Create New Entry</CardTitle>
         </CardHeader>
@@ -91,13 +94,17 @@ export default function NewEntryPage() {
               />
             </div>
 
-            <div className="flex gap-3">
-              <SubmitButton />
-              <Link href="/">
-                <Button type="button" variant="outline">
-                  Cancel
-                </Button>
-              </Link>
+            <div className="grid grid-cols-2 gap-3 md:flex md:gap-3">
+              <div className="flex justify-center md:justify-start">
+                <SubmitButton />
+              </div>
+              <div className="flex justify-center md:justify-start">
+                <Link href="/" className="w-full md:w-auto">
+                  <Button type="button" variant="outline" className="w-full">
+                    Cancel
+                  </Button>
+                </Link>
+              </div>
             </div>
           </form>
         </CardContent>

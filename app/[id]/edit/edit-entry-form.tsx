@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,6 +9,7 @@ import { SaveIcon, EditIcon, XIcon } from "lucide-react";
 import { updateWorkLogEntry } from "@/lib/actions/work-log";
 import { useFormStatus } from "react-dom";
 import Link from "next/link";
+import { WorkLogNav } from "@/components/work-log-nav";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -18,7 +18,7 @@ function SubmitButton() {
     <Button
       type="submit"
       disabled={pending}
-      className="flex items-center gap-2"
+      className="flex items-center gap-2 w-full md:w-auto"
     >
       <SaveIcon size={16} />
       {pending ? "Saving..." : "Save Changes"}
@@ -56,21 +56,15 @@ export function EditEntryForm({ entry }: EditEntryFormProps) {
   };
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-8">
+    <div className="flex-1 w-full flex flex-col gap-8 items-center">
+      <WorkLogNav />
       <div className="flex justify-between items-center">
         <h1 className="font-bold text-3xl">
           {isEditing ? "Edit Entry" : "Work Log Entry"}
         </h1>
-        <div className="text-sm text-muted-foreground">
-          {entry.created_at ? new Date(entry.created_at).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          }) : 'No Date'}
-        </div>
       </div>
 
-      <Card className="max-w-2xl">
+      <Card className="w-full max-w-2xl md:max-w-4xl">
         <CardHeader>
           <CardTitle>
             {isEditing ? "Edit Entry Details" : "Entry Details"}
@@ -83,6 +77,18 @@ export function EditEntryForm({ entry }: EditEntryFormProps) {
                 {error}
               </div>
             )}
+
+            <div className="space-y-2">
+              <Label htmlFor="entryDate">Entry Date</Label>
+              <Input
+                id="entryDate"
+                name="entryDate"
+                type="date"
+                defaultValue={entry.created_at ? new Date(entry.created_at).toISOString().split('T')[0] : ''}
+                disabled={!isEditing}
+                className="w-full"
+              />
+            </div>
 
             <div className="space-y-2">
               <Label htmlFor="project">Project</Label>
@@ -124,35 +130,43 @@ export function EditEntryForm({ entry }: EditEntryFormProps) {
               />
             </div>
 
-            <div className="flex gap-3">
+            <div className="grid grid-cols-2 gap-3 md:flex md:gap-3">
               {!isEditing ? (
                 <>
-                  <Button
-                    type="button"
-                    onClick={() => setIsEditing(true)}
-                    className="flex items-center gap-2"
-                  >
-                    <EditIcon size={16} />
-                    Edit Entry
-                  </Button>
-                  <Link href="/">
-                    <Button type="button" variant="outline">
-                      Back to Log
+                  <div className="flex justify-center md:justify-start">
+                    <Button
+                      type="button"
+                      onClick={() => setIsEditing(true)}
+                      className="flex items-center gap-2 w-full md:w-auto"
+                    >
+                      <EditIcon size={16} />
+                      Edit Entry
                     </Button>
-                  </Link>
+                  </div>
+                  <div className="flex justify-center md:justify-start">
+                    <Link href="/" className="w-full md:w-auto">
+                      <Button type="button" variant="outline" className="w-full">
+                        Back to Log
+                      </Button>
+                    </Link>
+                  </div>
                 </>
               ) : (
                 <>
-                  <SubmitButton />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleCancel}
-                    className="flex items-center gap-2"
-                  >
-                    <XIcon size={16} />
-                    Cancel
-                  </Button>
+                  <div className="flex justify-center md:justify-start">
+                    <SubmitButton />
+                  </div>
+                  <div className="flex justify-center md:justify-start">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleCancel}
+                      className="flex items-center gap-2 w-full md:w-auto"
+                    >
+                      <XIcon size={16} />
+                      Cancel
+                    </Button>
+                  </div>
                 </>
               )}
             </div>

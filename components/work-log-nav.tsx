@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { HomeIcon, PlusIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import { ClientAuthButton } from "@/components/client-auth-button";
 import { EnvVarWarning } from "@/components/env-var-warning";
 import { hasEnvVars } from "@/lib/utils";
@@ -13,11 +13,6 @@ export function WorkLogNav() {
 
   const navItems = [
     {
-      href: "/",
-      label: "Home",
-      icon: HomeIcon,
-    },
-    {
       href: "/new",
       label: "New",
       icon: PlusIcon,
@@ -26,7 +21,7 @@ export function WorkLogNav() {
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
+      <div className="container flex h-14 max-w-screen-2xl items-center p-4">
         <div className="flex gap-6 md:gap-10">
           <Link href="/" className="flex items-center space-x-2">
             <span className="font-bold">Work Log</span>

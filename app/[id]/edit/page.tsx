@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getWorkLogEntry } from "@/lib/actions/work-log";
 import { EditEntryForm } from "./edit-entry-form";
+import { Suspense } from "react";
 
 interface EditEntryPageProps {
   params: Promise<{
@@ -8,11 +9,11 @@ interface EditEntryPageProps {
   }>;
 }
 
-export default async function EditEntryPage({ params }: EditEntryPageProps) {
+async function EditEntryContent({ params }: EditEntryPageProps) {
   try {
     const { id } = await params;
     const entry = await getWorkLogEntry(id);
-    
+
     if (!entry) {
       console.log("Entry not found");
       notFound();
@@ -25,3 +26,10 @@ export default async function EditEntryPage({ params }: EditEntryPageProps) {
   }
 }
 
+export default function EditEntryPage({ params }: EditEntryPageProps) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EditEntryContent params={params} />
+    </Suspense>
+  );
+}

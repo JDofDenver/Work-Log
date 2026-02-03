@@ -1,150 +1,53 @@
-import { createClient } from "@/lib/supabase/server";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PlusIcon } from "lucide-react";
-import { Suspense } from "react";
-import { getWorkLogEntries } from "@/lib/actions/work-log";
-import { LoginForm } from "@/components/login-form";
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { WorkLogNav } from "@/components/work-log-nav";
-import { CopyrightYear } from "@/components/copyright-year";
 
-async function AuthenticatedContent() {
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.getUser();
-
-  if (!data?.user || error) {
-    return <LoginContent />;
-  }
-
+export default function LandingPage() {
   return (
-    <>
-      <WorkLogNav />
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
-          <Suspense fallback={<div>Loading...</div>}>
-            <WorkLogContent />
-          </Suspense>
-        </div>
-        <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-          <CopyrightYear />
-          <ThemeSwitcher />
-        </footer>
-      </div>
-    </>
-  );
-}
-
-async function WorkLogContent() {
-  const entries = await getWorkLogEntries();
-
-  return (
-    <div className="flex-1 w-full flex flex-col gap-8">
-      <div className="flex justify-between items-center">
-        <h1 className="font-bold text-3xl">Work Log</h1>
-        <Link href="/new">
-          <Button className="flex items-center gap-2">
-            <PlusIcon size={16} />
-            New Entry
-          </Button>
-        </Link>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">All Entries</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {entries.length === 0 ? (
-            <p className="text-muted-foreground text-center py-8">
-              No entries yet. Create your first work log entry!
-            </p>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left py-3 px-4 font-semibold">Entry Date</th>
-                    <th className="text-left py-3 px-4 font-semibold">Subject Line</th>
-                    <th className="text-left py-3 px-4 font-semibold">Project</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {entries.map((entry) => (
-                    <tr key={entry.id} className="border-b hover:bg-muted/50">
-                      <td className="py-3 px-4">
-                        <Link href={`/${entry.id}/edit`} className="block cursor-pointer">
-                          <div className="font-medium">
-                            {new Date(entry.entry_date).toLocaleDateString()}
-                          </div>
-                        </Link>
-                      </td>
-                      <td className="py-3 px-4">
-                        <Link href={`/${entry.id}/edit`} className="block cursor-pointer">
-                          <div className="font-medium">{entry.subject_line}</div>
-                        </Link>
-                      </td>
-                      <td className="py-3 px-4">
-                        <Link href={`/${entry.id}/edit`} className="block cursor-pointer">
-                          <div className="text-muted-foreground">{entry.project}</div>
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+      <div className="container mx-auto px-4 py-16">
+        {/* Header Banner */}
+        <div className="text-center mb-16">
+          <div className="inline-block mb-6 p-4 bg-white dark:bg-gray-800 rounded-full shadow-lg">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <span className="text-2xl font-bold text-white">TGD</span>
             </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-function LoginContent() {
-  return (
-    <>
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-          <div className="flex gap-5 items-center font-semibold">
-            <span>Work Log</span>
           </div>
-          <ThemeSwitcher />
+          <h1 className="text-5xl md:text-7xl font-bold text-gray-800 dark:text-white mb-6">
+            TheGratefulDev
+          </h1>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8"></div>
         </div>
-      </nav>
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
-          <div className="flex-1 flex flex-col items-center justify-center gap-8 max-w-md mx-auto">
-            <div className="text-center">
-              <h1 className="font-bold text-3xl mb-2">Work Log</h1>
-              <p className="text-muted-foreground">Sign in to access your work log</p>
+
+        {/* Main Content */}
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 md:p-12 mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-6 text-center">
+              Personal Projects Showcase
+            </h2>
+            <div className="prose dark:prose-invert max-w-none">
+              <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-6 text-center">
+                Welcome to my corner of the internet! This is where I intend toshowcase my personal development projects,
+                and experiment with implementing new projects and tools.
+              </p>
+              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6 text-center">
+                There isn&apos;t much to show off at all just yet, but this landing page. There&apos;ll be more comming soon as I get building.
+              </p>
+              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed text-center">
+                Feel free to keep tabs on me and reach out to ask any questions.
+                2026 is the year of building. Yalla!
+              </p>
             </div>
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle>Sign In</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <LoginForm />
-              </CardContent>
-            </Card>
           </div>
         </div>
-        <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-          <CopyrightYear />
-          <ThemeSwitcher />
+
+        {/* Footer */}
+        <footer className="text-center pt-12 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-500 dark:text-gray-400 text-sm">
+            <span>TheGratefulDev.xyz</span>
+            <span className="hidden sm:inline">•</span>
+            <ThemeSwitcher />
+          </div>
         </footer>
       </div>
-    </>
-  );
-}
-
-export default function HomePage() {
-  return (
-    <main className="min-h-screen flex flex-col items-center">
-      <Suspense fallback={<div>Loading...</div>}>
-        <AuthenticatedContent />
-      </Suspense>
     </main>
   );
 }

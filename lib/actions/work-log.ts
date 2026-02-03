@@ -93,10 +93,10 @@ export async function createWorkLogEntry(formData: FormData) {
     console.log("Created entry:", data);
 
     // Revalidate the work log page to show the new entry
-    revalidatePath("/");
+    revalidatePath("/log");
 
     // Redirect to the work log page
-    redirect("/");
+    redirect("/log");
 
   } catch (error) {
     console.error("Error creating work log entry:", error);

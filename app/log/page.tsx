@@ -76,7 +76,7 @@ async function WorkLogContent() {
                       <td className="py-3 px-4">
                         <Link href={`/log/${entry.id}/edit`} className="block cursor-pointer">
                           <div className="font-medium">
-                            {new Date(entry.entry_date).toLocaleDateString()}
+                            {new Date(entry.created_at).toLocaleDateString()}
                           </div>
                         </Link>
                       </td>

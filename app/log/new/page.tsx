@@ -99,7 +99,7 @@ export default function NewEntryPage() {
                 <SubmitButton />
               </div>
               <div className="flex justify-center md:justify-start">
-                <Link href="/" className="w-full md:w-auto">
+                <Link href="/log" className="w-full md:w-auto">
                   <Button type="button" variant="outline" className="w-full">
                     Cancel
                   </Button>

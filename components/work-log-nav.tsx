@@ -23,7 +23,7 @@ export function WorkLogNav() {
     <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center p-4">
         <div className="flex gap-6 md:gap-10">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/log" className="flex items-center space-x-2">
             <span className="font-bold">Work Log</span>
           </Link>
         </div>
